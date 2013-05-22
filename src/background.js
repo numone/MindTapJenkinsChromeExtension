@@ -1,4 +1,4 @@
-function(global) {
+(function(global) {
 	var alarmTimeoutMinutes = 1;
 	var queryUrl = 'http://jenkins.mindtap.corp.web:8080/view/Radiator_View/api/json';
 	var queryData = {
@@ -43,4 +43,4 @@ function(global) {
 	
 	chrome.alarms.onAlarm.addListener(queryJenkins);
 	queryJenkins();
-}(this);
+})(this);
