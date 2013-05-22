@@ -14,5 +14,5 @@
        "default_title": "Jenkins Status",
        "default_popup": "popup.html"
     },
-    "permissions": [ "http://jenkins.mindtap.corp.web:8080/view/Radiator_View/api/json", "alarms" ]
+    "permissions": [ "http://jenkins.mindtap.corp.web:8080/view/Radiator_View/api/json", "alarms", "background" ]
 }
