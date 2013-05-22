@@ -2,11 +2,17 @@
     "name": "MindTap Jenkins Notification",
     "version": "1.0",
     "manifest_version": 2,
-    "default_locale": "en",
     "background": {
         "scripts": [
+			"src/jquery/latest/jquery.js",
             "src/background.js"
         ],
         "persistent": false
-    }
+    },
+    "browser_action": {
+       "default_icon": "images/green.png",
+       "default_title": "Jenkins Status",
+       "popup": "popup.html"
+    },
+    "permissions": [ "http://jenkins.mindtap.corp.web:8080/view/Radiator_View/api/json" ]
 }

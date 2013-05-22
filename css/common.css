@@ -1,0 +1,19 @@
+BODY{
+	background-color: #F0F0FF;
+	font-family: monaco, sans-serif;
+	font-size	:	9pt;
+	width: 300px;
+}
+FIELDSET{
+	-webkit-border-radius: 6px;
+	background-color: #E0E0E0;
+	margin-top:10px;
+	border: 1px solid #B8B8B8;
+}
+FIELDSET LEGEND{
+	background-color: #E0E0E0;
+	border-top:	1px solid #B8B8B8;
+	border-left:	1px solid #B8B8B8;
+	border-right:	1px solid #B8B8B8;
+	-webkit-border-radius: 6px;
+}
