@@ -6,6 +6,7 @@
     }
 
     function queryJenkins(alarm) {
+        chrome.browserAction.setIcon({path: 'images/loading.gif'});
         $.ajax({
             url: queryUrl,
             data: queryData,
@@ -18,14 +19,14 @@
     }
 
     function publishResults(data) {
-        var isGood = true;
+        var redJobs = [];
         for (var i = 0; i < data.jobs.length; i++) {
             if (data.jobs[i].color === "red" || data.jobs[i].color === "red_anime") {
-                isGood = false;
+                redJobs.push(data.jobs[i].url);
             }
         }
 
-        if (isGood) {
+        if (redJobs.length === 0) {
             chrome.browserAction.setIcon({path: 'images/green.png'});
             chrome.browserAction.setTitle({title: 'All Jobs Are Green!'});
         } else {
@@ -33,12 +34,29 @@
             chrome.browserAction.setTitle({title: 'One Or More Jobs Failed!'});
         }
 
-        global.lastJenkinsRequestData = data.jobs;
+        localStorage.setItem('lastJenkinsRequestData', JSON.stringify(data.jobs));
+        updateAndNotifyRedBuilds(redJobs);
+    }
+
+    function updateAndNotifyRedBuilds(redJobs) {
+        var oldRedJobs = JSON.parse(localStorage.getItem('lastJenkinsRequestRedBuilds') || '[]');
+        for (var i = 0; i < redJobs.length; i++) {
+            if ($.inArray(redJobs[i], oldRedJobs) === -1) {
+                var notify = webkitNotifications.createNotification('images/red.png', 'Failed Jenkins Job!', 'Look at the popup for more information');
+                notify.show();
+            }
+        }
+        localStorage.setItem('lastJenkinsRequestRedBuilds', JSON.stringify(redJobs));
     }
 
     function publishError(xhr, textStatus, errorThrown) {
         chrome.browserAction.setIcon({path: 'images/gray.png'});
         chrome.browserAction.setTitle({title: 'Error: ' + (errorThrown || textStatus)});
+    }
+
+    global.requestNewDataNow = function() {
+        chrome.alarms.clear('queryJenkins');
+        queryJenkins();
     }
 
     chrome.alarms.onAlarm.addListener(queryJenkins);
