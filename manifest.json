@@ -14,5 +14,13 @@
        "default_title": "Jenkins Status",
        "default_popup": "popup.html"
     },
-    "permissions": [ "http://jenkins.mindtap.corp.web:8080/view/Radiator_View/api/json", "alarms", "background" ]
+    "permissions": [ "http://jenkins.mindtap.corp.web:8080/view/Radiator_View/api/json", "alarms", "background" ],
+    "commands": {
+        "_execute_browser_action": {
+            "suggested_key": {
+                "default": "Ctrl+Shift+Y",
+                "mac": "Command+Shift+Y"
+            }
+        }
+    }
 }
