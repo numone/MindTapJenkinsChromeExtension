@@ -42,8 +42,10 @@
         var oldRedJobs = JSON.parse(localStorage.getItem('lastJenkinsRequestRedBuilds') || '[]');
         for (var i = 0; i < redJobs.length; i++) {
             if ($.inArray(redJobs[i], oldRedJobs) === -1) {
-                var notify = webkitNotifications.createNotification('images/red.png', 'Failed Jenkins Job!', 'Look at the popup for more information');
-                notify.show();
+                try {
+                	var notify = webkitNotifications.createNotification('images/red.png', 'Failed Jenkins Job!', 'Look at the popup for more information');
+                	notify.show();
+            	} catch(e){}
             }
         }
         localStorage.setItem('lastJenkinsRequestRedBuilds', JSON.stringify(redJobs));
