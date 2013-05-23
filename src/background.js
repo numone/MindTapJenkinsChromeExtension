@@ -43,9 +43,10 @@
         for (var i = 0; i < redJobs.length; i++) {
             if ($.inArray(redJobs[i], oldRedJobs) === -1) {
                 try {
-                	var notify = webkitNotifications.createNotification('images/red.png', 'Failed Jenkins Job!', 'Look at the popup for more information');
-                	notify.show();
-            	} catch(e){}
+                    var notify = webkitNotifications.createNotification('images/red.png', 'Failed Jenkins Job!', 'Look at the popup for more information');
+                    notify.show();
+                } catch (e) {
+                }
             }
         }
         localStorage.setItem('lastJenkinsRequestRedBuilds', JSON.stringify(redJobs));
@@ -56,7 +57,7 @@
         chrome.browserAction.setTitle({title: 'Error: ' + (errorThrown || textStatus)});
     }
 
-    global.requestNewDataNow = function() {
+    global.requestNewDataNow = function () {
         chrome.alarms.clear('queryJenkins');
         queryJenkins();
     }
